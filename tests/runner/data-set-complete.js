@@ -457,7 +457,12 @@ window.Francodacosta.DataSet.Loader.Json = (function() {
 
   Json.prototype.load = function() {
     var columns, data, prop;
-    data = JSON.parse(this.data);
+    data = this.data;
+    console.log('data type is ', typeof data);
+    if (typeof data !== 'object') {
+      data = JSON.parse(data);
+    }
+    console.log('data for loader', data);
     columns = [];
     for (prop in data[0]) {
       columns.push(prop);

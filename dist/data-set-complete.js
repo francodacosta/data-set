@@ -1,5 +1,5 @@
 /*!
-  * DataSet | Powerfull dataset for your app
+ * DataSet | Powerfull dataset for your app
  * http://francodacosta.com/data-set/
  *
  * Copyright 2013-2014, Nuno Costa <nuno@francodacosta.com>
@@ -320,60 +320,50 @@ window.Francodacosta.DataSet = window.Francodacosta.DataSet || {};
 
 window.Francodacosta.DataSet.Filter = window.Francodacosta.DataSet.Filter || {};
 
-window.Francodacosta.DataSet.Filter.Number = (function() {
-  function Number() {}
-
-  Number.prototype.equal = function() {
+window.Francodacosta.DataSet.Filter.Number = {
+  equal: function() {
     return function(value, filterTerm) {
       value = parseFloat(value);
       filterTerm = parseFloat(filterTerm);
       return value === filterTerm;
     };
-  };
-
-  Number.prototype.notEqual = function() {
+  },
+  notEqual: function() {
     return function(value, filterTerm) {
       value = parseFloat(value);
       filterTerm = parseFloat(filterTerm);
       return value !== filterTerm;
     };
-  };
-
-  Number.prototype.greaterThan = function() {
+  },
+  greaterThan: function() {
     return function(value, filterTerm) {
       value = parseFloat(value);
       filterTerm = parseFloat(filterTerm);
       return value > filterTerm;
     };
-  };
-
-  Number.prototype.greaterThanOrEqualTo = function() {
+  },
+  greaterThanOrEqualTo: function() {
     return function(value, filterTerm) {
       value = parseFloat(value);
       filterTerm = parseFloat(filterTerm);
       return value >= filterTerm;
     };
-  };
-
-  Number.prototype.lessThan = function() {
+  },
+  lessThan: function() {
     return function(value, filterTerm) {
       value = parseFloat(value);
       filterTerm = parseFloat(filterTerm);
       return value < filterTerm;
     };
-  };
-
-  Number.prototype.lessThanOrEqualTo = function() {
+  },
+  lessThanOrEqualTo: function() {
     return function(value, filterTerm) {
       value = parseFloat(value);
       filterTerm = parseFloat(filterTerm);
       return value <= filterTerm;
     };
-  };
-
-  return Number;
-
-})();
+  }
+};
 
 window.Francodacosta = window.Francodacosta || {};
 
@@ -381,10 +371,8 @@ window.Francodacosta.DataSet = window.Francodacosta.DataSet || {};
 
 window.Francodacosta.DataSet.Filter = window.Francodacosta.DataSet.Filter || {};
 
-window.Francodacosta.DataSet.Filter.Text = (function() {
-  function Text() {}
-
-  Text.prototype.match = function(caseSensitive) {
+window.Francodacosta.DataSet.Filter.Text = {
+  match: function(caseSensitive) {
     return (function(_this) {
       return function(value, filterTerm) {
         caseSensitive = caseSensitive || false;
@@ -395,52 +383,44 @@ window.Francodacosta.DataSet.Filter.Text = (function() {
         return value === filterTerm;
       };
     })(this);
-  };
-
-  Text.prototype.beginsWith = function() {
+  },
+  beginsWith: function() {
     return (function(_this) {
       return function(value, filterTerm) {
         filterTerm = '^' + filterTerm;
         return _this._regExp(value, filterTerm);
       };
     })(this);
-  };
-
-  Text.prototype.endsWith = function() {
+  },
+  endsWith: function() {
     return (function(_this) {
       return function(value, filterTerm) {
         filterTerm = filterTerm + '$';
         return _this._regExp(value, filterTerm);
       };
     })(this);
-  };
-
-  Text.prototype.contains = function() {
+  },
+  contains: function() {
     return (function(_this) {
       return function(value, filterTerm) {
         filterTerm = filterTerm;
         return _this._regExp(value, filterTerm);
       };
     })(this);
-  };
-
-  Text.prototype.regularExpression = function() {
+  },
+  regularExpression: function() {
     return (function(_this) {
       return function(value, filterTerm) {
         return _this._regExp(value, filterTerm);
       };
     })(this);
-  };
-
-  Text.prototype._regExp = function(value, filterTerm) {
+  },
+  _regExp: function(value, filterTerm) {
     var regExp;
     regExp = new RegExp(filterTerm);
     return regExp.test(value);
-  };
-
-  return Text;
-
-})();
+  }
+};
 
 window.Francodacosta = window.Francodacosta || {};
 
@@ -486,7 +466,10 @@ window.Francodacosta.DataSet.Loader.Json = (function() {
 
   Json.prototype.load = function() {
     var columns, data, prop;
-    data = JSON.parse(this.data);
+    data = this.data;
+    if (typeof data !== 'object') {
+      data = JSON.parse(data);
+    }
     columns = [];
     for (prop in data[0]) {
       columns.push(prop);

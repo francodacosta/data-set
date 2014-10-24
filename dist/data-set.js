@@ -1,5 +1,5 @@
 /*!
-  * DataSet | Powerfull dataset for your app
+ * DataSet | Powerfull dataset for your app
  * http://francodacosta.com/data-set/
  *
  * Copyright 2013-2014, Nuno Costa <nuno@francodacosta.com>

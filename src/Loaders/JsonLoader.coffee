@@ -9,7 +9,11 @@ class window.Francodacosta.DataSet.Loader.Json
 
 
     load: () ->
-        data =JSON.parse(@data)
+        data = @data
+        if typeof data != 'object'
+            data = JSON.parse(data)
+
+
         columns = []
         for prop of data[0]
             columns.push prop

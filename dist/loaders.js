@@ -1,5 +1,5 @@
 /*!
-  * DataSet | Powerfull dataset for your app
+ * DataSet | Powerfull dataset for your app
  * http://francodacosta.com/data-set/
  *
  * Copyright 2013-2014, Nuno Costa <nuno@francodacosta.com>
@@ -51,7 +51,10 @@ window.Francodacosta.DataSet.Loader.Json = (function() {
 
   Json.prototype.load = function() {
     var columns, data, prop;
-    data = JSON.parse(this.data);
+    data = this.data;
+    if (typeof data !== 'object') {
+      data = JSON.parse(data);
+    }
     columns = [];
     for (prop in data[0]) {
       columns.push(prop);
