@@ -12,7 +12,7 @@
     "data sorting",
     "filter data"
   ],
-  "description": "powerfull recordset class, supporting sorting, filtering, subsets, loading data from json, array and htmk markup",
+  "description": "powerfull recordset class, supporting sorting, filtering, subsets, loading data from json, array and html markup",
   "author": "Nuno Costa <nuno@francodacosta.com>",
   "main": "dist/dataset.min.js",
   "repository": {
